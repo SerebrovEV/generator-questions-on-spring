@@ -1,4 +1,4 @@
-package com.skypro.java8.CourseWork_2.repository;
+package com.skypro.java8.course_work_2.repository;
 
 import java.util.Objects;
 
@@ -33,8 +33,7 @@ public class Question {
 
     @Override
     public String toString() {
-        return "Вопросы: " +
-                "вопрос='" + question + '\'' +
+        return "вопрос='" + question + '\'' +
                 ", ответ='" + answer + '\'' +
                 '}';
     }
