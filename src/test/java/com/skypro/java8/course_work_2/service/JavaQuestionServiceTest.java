@@ -1,5 +1,8 @@
 package com.skypro.java8.course_work_2.service;
 
+import com.skypro.java8.course_work_2.exception.ArgumentQuestionRepeatsAnswer;
+import com.skypro.java8.course_work_2.exception.IncorrectNumberForQuestions;
+import com.skypro.java8.course_work_2.exception.IncorrectQuestionOrAnswer;
 import com.skypro.java8.course_work_2.repository.Question;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class JavaQuestionServiceTest {
     JavaQuestionService out = new JavaQuestionService();
@@ -57,6 +61,11 @@ public class JavaQuestionServiceTest {
         Question actual = new Question("Example question 1", "Example answer 1");
         assertEquals(expected, actual);
     }
-
+    @Test
+    public void shouldCallThrowExceptionInEmployeeService() {
+        assertThrows(ArgumentQuestionRepeatsAnswer.class, () -> out.add("Example question 1", "Example question 1"));
+        assertThrows(IncorrectQuestionOrAnswer.class, () -> out.add("Example question 1", null));
+        assertThrows(IncorrectQuestionOrAnswer.class, () -> out.add(null, "Example answer 1"));
+    }
 
 }

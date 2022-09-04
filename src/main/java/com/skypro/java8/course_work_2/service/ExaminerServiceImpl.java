@@ -24,7 +24,7 @@ public class ExaminerServiceImpl implements ExaminerService {
         while (!(counter == amount)){
             if (!questionsList.contains(questionService.getRandomQuestion())) {
                 questionsList.add(questionService.getRandomQuestion());
-                counter ++;
+                counter++;
             }
         }
         return questionsList;
