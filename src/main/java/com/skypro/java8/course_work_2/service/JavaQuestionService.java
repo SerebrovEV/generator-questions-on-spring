@@ -21,6 +21,7 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Question add(String question, String answer) {
+        checkQuestion(question, answer);
         Question questionAdd = new Question(question, answer);
         questions.add(questionAdd);
         return questionAdd;
@@ -28,28 +29,34 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Question add(Question question) {
+        checkQuestion(question.getQuestion(), question.getAnswer());
         questions.add(question);
         return question;
     }
 
     @Override
     public Question remove(Question question) {
+        checkQuestion(question.getQuestion(), question.getAnswer());
         questions.remove(question);
         return question;
     }
 
     @Override
     public Collection<Question> getAll() {
-      return questions;
+        return questions;
     }
 
     @Override
-    public Collection<Question> getRandomQuestion() {
+    public Question getRandomQuestion() {
         Random random = new Random();
         int value = random.nextInt(questions.size());
-        List<Question> questionList= new ArrayList<>(questions.stream().collect(Collectors.toList()));
-        List<Question> randomQuestionList = new ArrayList<>();
-        randomQuestionList.add(questionList.get(value));
-        return randomQuestionList;
+        List<Question> questionList = new ArrayList<>(questions.stream().collect(Collectors.toList()));
+        Question randomQuestion = questionList.get(value);
+        return randomQuestion;
+    }
+
+    @Override
+    public int size() {
+        return questions.size();
     }
 }

@@ -14,6 +14,9 @@ public interface QuestionService {
 
     Collection <Question> getAll();
 
-    Collection<Question> getRandomQuestion();
+    Question getRandomQuestion();
+
+    int size();
+
 
 }
