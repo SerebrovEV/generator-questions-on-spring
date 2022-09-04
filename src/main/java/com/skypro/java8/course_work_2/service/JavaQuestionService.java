@@ -2,16 +2,18 @@ package com.skypro.java8.course_work_2.service;
 
 import com.skypro.java8.course_work_2.exception.ArgumentQuestionRepeatsAnswer;
 import com.skypro.java8.course_work_2.exception.IncorrectQuestionOrAnswer;
+import com.skypro.java8.course_work_2.exception.ObjectNotFound;
+import com.skypro.java8.course_work_2.exception.StorageIsEmpty;
 import com.skypro.java8.course_work_2.repository.Question;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class JavaQuestionService implements QuestionService {
 
-    private Set<Question> questions = new HashSet<>();
+    private final Set<Question> questions = new HashSet<>();
+    private final Random random = new Random();
 
     private void checkQuestion(String question, String answer) {
         if (question == null || answer == null) {
@@ -25,9 +27,8 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Question add(String question, String answer) {
-        checkQuestion(question, answer);
         Question questionAdd = new Question(question, answer);
-        questions.add(questionAdd);
+        add(questionAdd);
         return questionAdd;
     }
 
@@ -41,8 +42,10 @@ public class JavaQuestionService implements QuestionService {
     @Override
     public Question remove(Question question) {
         checkQuestion(question.getQuestion(), question.getAnswer());
-        questions.remove(question);
-        return question;
+        if (questions.remove(question)) {
+            return question;
+        }
+        throw new ObjectNotFound();
     }
 
     @Override
@@ -52,11 +55,12 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Question getRandomQuestion() {
-        Random random = new Random();
+        if (questions.size() == 0) {
+            throw new StorageIsEmpty();
+        }
         int value = random.nextInt(questions.size());
-        List<Question> questionList = new ArrayList<>(questions.stream().collect(Collectors.toList()));
-        Question randomQuestion = questionList.get(value);
-        return randomQuestion;
+        List<Question> questionList = new ArrayList<>(questions);
+        return questionList.get(value);
     }
 
     @Override

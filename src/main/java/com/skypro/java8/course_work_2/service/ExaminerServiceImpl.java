@@ -16,16 +16,12 @@ public class ExaminerServiceImpl implements ExaminerService {
 
     @Override
     public Collection<Question> getQuestions(int amount) {
-        if (amount > questionService.size()) {
+        if (amount > questionService.size()|| amount < 0) {
             throw new IncorrectNumberForQuestions();
         }
-        List<Question> questionsList = new ArrayList<>();
-        int counter = 0;
-        while (!(counter == amount)){
-            if (!questionsList.contains(questionService.getRandomQuestion())) {
-                questionsList.add(questionService.getRandomQuestion());
-                counter++;
-            }
+        Set<Question> questionsList = new HashSet<>();
+        while (!(questionsList.size() == amount)){
+            questionsList.add(questionService.getRandomQuestion());
         }
         return questionsList;
     }
