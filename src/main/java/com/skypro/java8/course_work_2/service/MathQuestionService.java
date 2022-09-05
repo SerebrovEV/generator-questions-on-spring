@@ -8,13 +8,13 @@ import com.skypro.java8.course_work_2.repository.Question;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
-public class JavaQuestionService implements QuestionService {
+public class MathQuestionService implements QuestionService{
 
-    private final Set<Question> javaQuestions = new HashSet<>();
+    private final Set<Question> mathQuestions = new HashSet<>();
     private final Random random = new Random();
+
 
     private void checkQuestion(String question, String answer) {
         if (question == null || answer == null) {
@@ -24,7 +24,6 @@ public class JavaQuestionService implements QuestionService {
             throw new ArgumentQuestionRepeatsAnswer();
         }
     }
-
 
     @Override
     public Question add(String question, String answer) {
@@ -36,14 +35,14 @@ public class JavaQuestionService implements QuestionService {
     @Override
     public Question add(Question question) {
         checkQuestion(question.getQuestion(), question.getAnswer());
-        javaQuestions.add(question);
+        mathQuestions.add(question);
         return question;
     }
 
     @Override
     public Question remove(Question question) {
         checkQuestion(question.getQuestion(), question.getAnswer());
-        if (javaQuestions.remove(question)) {
+        if (mathQuestions.remove(question)) {
             return question;
         }
         throw new ObjectNotFoundException();
@@ -51,7 +50,7 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Question find(Question question) {
-        return javaQuestions.stream()
+        return mathQuestions.stream()
                 .filter(q -> q.equals(question))
                 .findFirst()
                 .orElseThrow(ObjectNotFoundException::new);
@@ -59,21 +58,21 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Collection<Question> getAll() {
-        return javaQuestions;
+        return mathQuestions;
     }
 
     @Override
     public Question getRandomQuestion() {
-        if (javaQuestions.size() == 0) {
+        if (mathQuestions.size() == 0) {
             throw new StorageIsEmptyException();
         }
-        int value = random.nextInt(javaQuestions.size());
-        List<Question> questionList = new ArrayList<>(javaQuestions);
+        int value = random.nextInt(mathQuestions.size());
+        List<Question> questionList = new ArrayList<>(mathQuestions);
         return questionList.get(value);
     }
 
     @Override
     public int size() {
-        return javaQuestions.size();
+        return mathQuestions.size();
     }
 }
