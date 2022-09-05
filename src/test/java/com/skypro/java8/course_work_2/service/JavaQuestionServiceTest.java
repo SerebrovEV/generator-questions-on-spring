@@ -2,8 +2,8 @@ package com.skypro.java8.course_work_2.service;
 
 import com.skypro.java8.course_work_2.exception.ArgumentQuestionRepeatsAnswer;
 import com.skypro.java8.course_work_2.exception.IncorrectQuestionOrAnswer;
-import com.skypro.java8.course_work_2.exception.ObjectNotFound;
-import com.skypro.java8.course_work_2.exception.StorageIsEmpty;
+import com.skypro.java8.course_work_2.exception.ObjectNotFoundException;
+import com.skypro.java8.course_work_2.exception.StorageIsEmptyException;
 import com.skypro.java8.course_work_2.repository.Question;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -72,8 +72,8 @@ public class JavaQuestionServiceTest {
     public void shouldCallThrowExceptionInJavaQuestionServiceRemove() {
         Question remove = new Question("Example question 1", "Example answer 1");
         out.remove(remove);
-        assertThrows(StorageIsEmpty.class, () -> out.getRandomQuestion());
-        assertThrows(ObjectNotFound.class, () -> out.remove(remove));
+        assertThrows(StorageIsEmptyException.class, () -> out.getRandomQuestion());
+        assertThrows(ObjectNotFoundException.class, () -> out.remove(remove));
     }
 
 

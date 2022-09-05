@@ -20,7 +20,7 @@ public class ExaminerServiceImpl implements ExaminerService {
             throw new IncorrectNumberForQuestions();
         }
         Set<Question> questionsList = new HashSet<>();
-        while (!(questionsList.size() == amount)){
+        while (questionsList.size() != amount){
             questionsList.add(questionService.getRandomQuestion());
         }
         return questionsList;

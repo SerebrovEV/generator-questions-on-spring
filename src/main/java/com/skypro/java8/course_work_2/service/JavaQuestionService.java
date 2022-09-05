@@ -2,8 +2,8 @@ package com.skypro.java8.course_work_2.service;
 
 import com.skypro.java8.course_work_2.exception.ArgumentQuestionRepeatsAnswer;
 import com.skypro.java8.course_work_2.exception.IncorrectQuestionOrAnswer;
-import com.skypro.java8.course_work_2.exception.ObjectNotFound;
-import com.skypro.java8.course_work_2.exception.StorageIsEmpty;
+import com.skypro.java8.course_work_2.exception.ObjectNotFoundException;
+import com.skypro.java8.course_work_2.exception.StorageIsEmptyException;
 import com.skypro.java8.course_work_2.repository.Question;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +45,7 @@ public class JavaQuestionService implements QuestionService {
         if (questions.remove(question)) {
             return question;
         }
-        throw new ObjectNotFound();
+        throw new ObjectNotFoundException();
     }
 
     @Override
@@ -56,7 +56,7 @@ public class JavaQuestionService implements QuestionService {
     @Override
     public Question getRandomQuestion() {
         if (questions.size() == 0) {
-            throw new StorageIsEmpty();
+            throw new StorageIsEmptyException();
         }
         int value = random.nextInt(questions.size());
         List<Question> questionList = new ArrayList<>(questions);
