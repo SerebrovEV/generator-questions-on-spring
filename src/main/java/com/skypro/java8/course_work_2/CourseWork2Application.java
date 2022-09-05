@@ -1,4 +1,4 @@
-package com.skypro.java8.CourseWork_2;
+package com.skypro.java8.course_work_2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
