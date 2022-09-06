@@ -32,12 +32,12 @@ public class JavaController {
         return questionService.remove(questionRemove);
     }
 
-    @GetMapping(path = "/find")
-    public Question findQuestion(@RequestParam("question") String question,
-                                   @RequestParam ("answer")String answer) {
-        Question questionFind= new Question(question, answer);
-        return questionService.find(questionFind);
-    }
+//    @GetMapping(path = "/find")
+//    public Question findQuestion(@RequestParam("question") String question,
+//                                   @RequestParam ("answer")String answer) {
+//        Question questionFind= new Question(question, answer);
+//        return questionService.find(questionFind);
+//    }
 
     @GetMapping
     public Collection<Question> getQuestion() {

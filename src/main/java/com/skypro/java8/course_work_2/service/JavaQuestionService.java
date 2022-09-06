@@ -2,19 +2,26 @@ package com.skypro.java8.course_work_2.service;
 
 import com.skypro.java8.course_work_2.exception.ArgumentQuestionRepeatsAnswer;
 import com.skypro.java8.course_work_2.exception.IncorrectQuestionOrAnswer;
-import com.skypro.java8.course_work_2.exception.ObjectNotFoundException;
 import com.skypro.java8.course_work_2.exception.StorageIsEmptyException;
+import com.skypro.java8.course_work_2.repository.JavaQuestionRepository;
 import com.skypro.java8.course_work_2.repository.Question;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class JavaQuestionService implements QuestionService {
 
-    private final Set<Question> javaQuestions = new HashSet<>();
+    // private final Set<Question> javaQuestions = new HashSet<>();
     private final Random random = new Random();
+
+    private final JavaQuestionRepository javaQuestionRepository;
+    @Autowired
+    public JavaQuestionService(JavaQuestionRepository javaQuestionRepository) {
+        this.javaQuestionRepository = javaQuestionRepository;
+    }
+
 
     private void checkQuestion(String question, String answer) {
         if (question == null || answer == null) {
@@ -29,51 +36,40 @@ public class JavaQuestionService implements QuestionService {
     @Override
     public Question add(String question, String answer) {
         Question questionAdd = new Question(question, answer);
-        add(questionAdd);
-        return questionAdd;
+        return add(questionAdd);
     }
 
     @Override
     public Question add(Question question) {
         checkQuestion(question.getQuestion(), question.getAnswer());
-        javaQuestions.add(question);
+        javaQuestionRepository.add(question);
         return question;
     }
 
     @Override
     public Question remove(Question question) {
         checkQuestion(question.getQuestion(), question.getAnswer());
-        if (javaQuestions.remove(question)) {
-            return question;
-        }
-        throw new ObjectNotFoundException();
-    }
-
-    @Override
-    public Question find(Question question) {
-        return javaQuestions.stream()
-                .filter(q -> q.equals(question))
-                .findFirst()
-                .orElseThrow(ObjectNotFoundException::new);
+        javaQuestionRepository.remove(question);
+        return question;
     }
 
     @Override
     public Collection<Question> getAll() {
-        return javaQuestions;
+        return javaQuestionRepository.getAll();
     }
 
     @Override
     public Question getRandomQuestion() {
-        if (javaQuestions.size() == 0) {
+        if (javaQuestionRepository.size() == 0) {
             throw new StorageIsEmptyException();
         }
-        int value = random.nextInt(javaQuestions.size());
-        List<Question> questionList = new ArrayList<>(javaQuestions);
+        int value = random.nextInt(javaQuestionRepository.size());
+        List<Question> questionList = new ArrayList<>(javaQuestionRepository.getAll());
         return questionList.get(value);
     }
 
-    @Override
     public int size() {
-        return javaQuestions.size();
+      return  javaQuestionRepository.size();
     }
+
 }
