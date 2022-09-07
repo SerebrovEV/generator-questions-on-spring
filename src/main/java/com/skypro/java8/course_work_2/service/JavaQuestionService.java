@@ -1,7 +1,5 @@
 package com.skypro.java8.course_work_2.service;
 
-import com.skypro.java8.course_work_2.exception.ArgumentQuestionRepeatsAnswer;
-import com.skypro.java8.course_work_2.exception.IncorrectQuestionOrAnswer;
 import com.skypro.java8.course_work_2.exception.StorageIsEmptyException;
 import com.skypro.java8.course_work_2.repository.JavaQuestionRepository;
 import com.skypro.java8.course_work_2.repository.Question;
@@ -16,22 +14,15 @@ public class JavaQuestionService implements QuestionService {
     // private final Set<Question> javaQuestions = new HashSet<>();
     private final Random random = new Random();
 
+    private final ValidatorService validatorService;
+
     private final JavaQuestionRepository javaQuestionRepository;
+
     @Autowired
-    public JavaQuestionService(JavaQuestionRepository javaQuestionRepository) {
+    public JavaQuestionService(ValidatorService validatorService, JavaQuestionRepository javaQuestionRepository) {
         this.javaQuestionRepository = javaQuestionRepository;
+        this.validatorService = validatorService;
     }
-
-
-    private void checkQuestion(String question, String answer) {
-        if (question == null || answer == null) {
-            throw new IncorrectQuestionOrAnswer();
-        }
-        if (question.equals(answer)) {
-            throw new ArgumentQuestionRepeatsAnswer();
-        }
-    }
-
 
     @Override
     public Question add(String question, String answer) {
@@ -41,16 +32,14 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Question add(Question question) {
-        checkQuestion(question.getQuestion(), question.getAnswer());
-        javaQuestionRepository.add(question);
-        return question;
+        validatorService.checkQuestion(question.getQuestion(), question.getAnswer());
+        return javaQuestionRepository.add(question);
     }
 
     @Override
     public Question remove(Question question) {
-        checkQuestion(question.getQuestion(), question.getAnswer());
-        javaQuestionRepository.remove(question);
-        return question;
+        validatorService.checkQuestion(question.getQuestion(), question.getAnswer());
+        return javaQuestionRepository.remove(question);
     }
 
     @Override
@@ -69,7 +58,7 @@ public class JavaQuestionService implements QuestionService {
     }
 
     public int size() {
-      return  javaQuestionRepository.size();
+        return javaQuestionRepository.size();
     }
 
 }

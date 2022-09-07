@@ -1,8 +1,5 @@
 package com.skypro.java8.course_work_2.service;
 
-import com.skypro.java8.course_work_2.exception.ArgumentQuestionRepeatsAnswer;
-import com.skypro.java8.course_work_2.exception.IncorrectQuestionOrAnswer;
-import com.skypro.java8.course_work_2.exception.ObjectNotFoundException;
 import com.skypro.java8.course_work_2.exception.StorageIsEmptyException;
 import com.skypro.java8.course_work_2.repository.MathQuestionRepository;
 import com.skypro.java8.course_work_2.repository.Question;
@@ -16,20 +13,13 @@ public class MathQuestionService implements QuestionService {
     // private final Set<Question> mathQuestions = new HashSet<>();
     private final Random random = new Random();
 
+    private final ValidatorService validatorService;
+
     private final MathQuestionRepository mathQuestions;
 
-    public MathQuestionService(MathQuestionRepository mathQuestions) {
+    public MathQuestionService(ValidatorService validatorService, MathQuestionRepository mathQuestions) {
         this.mathQuestions = mathQuestions;
-    }
-
-
-    private void checkQuestion(String question, String answer) {
-        if (question == null || answer == null) {
-            throw new IncorrectQuestionOrAnswer();
-        }
-        if (question.equals(answer)) {
-            throw new ArgumentQuestionRepeatsAnswer();
-        }
+        this.validatorService = validatorService;
     }
 
     @Override
@@ -40,16 +30,15 @@ public class MathQuestionService implements QuestionService {
 
     @Override
     public Question add(Question question) {
-        checkQuestion(question.getQuestion(), question.getAnswer());
-        mathQuestions.add(question);
-        return question;
+        validatorService.checkQuestion(question.getQuestion(), question.getAnswer());
+        return mathQuestions.add(question);
+
     }
 
     @Override
     public Question remove(Question question) {
-        checkQuestion(question.getQuestion(), question.getAnswer());
-        mathQuestions.remove(question);
-        return question;
+        validatorService.checkQuestion(question.getQuestion(), question.getAnswer());
+        return mathQuestions.remove(question);
     }
 
 //    @Override
@@ -74,7 +63,8 @@ public class MathQuestionService implements QuestionService {
         List<Question> questionList = new ArrayList<>(mathQuestions.getAll());
         return questionList.get(value);
     }
+
     public int size() {
-        return  mathQuestions.size();
+        return mathQuestions.size();
     }
 }
