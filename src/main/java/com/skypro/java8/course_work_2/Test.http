@@ -24,6 +24,6 @@ GET http://localhost:8080/exam/math/remove?question=QuestionText33&answer=Questi
 ###
 GET http://localhost:8080/exam/java/
 ###
-GET http://localhost:8080/exam/get?amount=2
+GET http://localhost:8080/exam/get/2
 ###
-GET http://localhost:8080/exam/get?amount=8
+GET http://localhost:8080/exam/get/8
