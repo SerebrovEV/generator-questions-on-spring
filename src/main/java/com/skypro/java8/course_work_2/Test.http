@@ -6,12 +6,24 @@ GET http://localhost:8080/exam/java/add?question=QuestionText3&answer=QuestionAn
 ###
 GET http://localhost:8080/exam/java/add?question=QuestionText4&answer=QuestionAnswer4
 ###
+GET http://localhost:8080/exam/java/add?question=QuestionText4&answer=QuestionText4
+###
+GET http://localhost:8080/exam/math/add?question=QuestionText11&answer=QuestionAnswer11
+###
+GET http://localhost:8080/exam/math/add?question=QuestionText22&answer=QuestionAnswer22
+###
+GET http://localhost:8080/exam/math/add?question=QuestionText33&answer=QuestionAnswer33
+###
 GET http://localhost:8080/exam/java/
+###
+GET http://localhost:8080/exam/math/
 ###
 GET http://localhost:8080/exam/java/remove?question=QuestionText4&answer=QuestionAnswer4
 ###
+GET http://localhost:8080/exam/math/remove?question=QuestionText33&answer=QuestionAnswer33
+###
 GET http://localhost:8080/exam/java/
 ###
-GET http://localhost:8080/exam/get?amount=2
+GET http://localhost:8080/exam/get/2
 ###
-GET http://localhost:8080/exam/get?amount=1
+GET http://localhost:8080/exam/get/8
