@@ -5,10 +5,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.Set;
-@Repository
-public class JavaQuestionRepository implements QuestionRepository{
 
-    Set<Question> javaQuestions = new HashSet<>();
+@Repository
+public class JavaQuestionRepository implements QuestionRepository {
+
+    private final Set<Question> javaQuestions = new HashSet<>();
+
     @Override
     public Question add(Question question) {
         javaQuestions.add(question);

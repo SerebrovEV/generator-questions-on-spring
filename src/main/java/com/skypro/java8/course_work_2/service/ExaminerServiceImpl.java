@@ -16,9 +16,6 @@ public class ExaminerServiceImpl implements ExaminerService {
         this.javaQuestionService = javaQuestionService;
         this.mathQuestionService = mathQuestionService;
     }
-//    public ExaminerServiceImpl(@Qualifier("javaQuestionService") QuestionService questionService) {
-//        this.questionService = questionService;
-//    }
 
     private int maxQuestionsNumber() {
         int maxNumber = mathQuestionService.size() + javaQuestionService.size();

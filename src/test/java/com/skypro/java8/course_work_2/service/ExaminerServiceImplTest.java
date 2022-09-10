@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
@@ -46,10 +47,13 @@ public class ExaminerServiceImplTest {
         expected.add(add4);
         expected.add(add5);
         expected.add(add6);
-        assertThat(out.getQuestions(6)).isEqualTo(expected);;
+        assertThat(out.getQuestions(6)).isEqualTo(expected);
+        ;
     }
+
     @Test
     public void shouldCallThrowExceptionInExaminerService() {
-        assertThrows(IncorrectNumberForQuestions.class, () -> out.getQuestions(1));
+        assertThatExceptionOfType(IncorrectNumberForQuestions.class).
+                isThrownBy(() -> out.getQuestions(1));
     }
 }

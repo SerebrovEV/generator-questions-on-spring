@@ -10,7 +10,6 @@ import java.util.*;
 @Service
 public class MathQuestionService implements QuestionService {
 
-    // private final Set<Question> mathQuestions = new HashSet<>();
     private final Random random = new Random();
 
     private final ValidatorService validatorService;

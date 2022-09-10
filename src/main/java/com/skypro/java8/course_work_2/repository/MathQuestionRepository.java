@@ -10,7 +10,7 @@ import java.util.Set;
 @Repository
 public class MathQuestionRepository implements QuestionRepository{
 
-    Set<Question> mathQuestions = new HashSet<>();
+   private final Set<Question> mathQuestions = new HashSet<>();
     @Override
     public Question add(Question question) {
         mathQuestions.add(question);

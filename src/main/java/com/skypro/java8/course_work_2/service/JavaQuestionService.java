@@ -11,14 +11,11 @@ import java.util.*;
 @Service
 public class JavaQuestionService implements QuestionService {
 
-    // private final Set<Question> javaQuestions = new HashSet<>();
     private final Random random = new Random();
 
     private final ValidatorService validatorService;
 
     private final JavaQuestionRepository javaQuestionRepository;
-
-    @Autowired
     public JavaQuestionService(ValidatorService validatorService, JavaQuestionRepository javaQuestionRepository) {
         this.javaQuestionRepository = javaQuestionRepository;
         this.validatorService = validatorService;
