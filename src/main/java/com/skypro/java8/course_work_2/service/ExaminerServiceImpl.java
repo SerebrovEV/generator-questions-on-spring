@@ -8,35 +8,28 @@ import java.util.*;
 
 @Service
 public class ExaminerServiceImpl implements ExaminerService {
-    private final JavaQuestionService javaQuestionService;
-    private final MathQuestionService mathQuestionService;
     private final Random random = new Random();
+    private final List<QuestionService> questionServices;
 
     public ExaminerServiceImpl(JavaQuestionService javaQuestionService, MathQuestionService mathQuestionService) {
-        this.javaQuestionService = javaQuestionService;
-        this.mathQuestionService = mathQuestionService;
+        this.questionServices = new ArrayList<>(List.of(javaQuestionService, mathQuestionService));
     }
 
-    private int maxQuestionsNumber() {
-        int maxNumber = mathQuestionService.size() + javaQuestionService.size();
-        return maxNumber;
-    }
-
-    private int randomGenerator() {
-      return random.nextInt(2);
+    private int maxNumberQuestion() {
+        return (10 + questionServices.get(0).size());
     }
 
     @Override
     public Collection<Question> getQuestions(int amount) {
-        if (amount > maxQuestionsNumber() || amount < 0) {
+        if (amount > maxNumberQuestion() || amount < 0) {
             throw new IncorrectNumberForQuestions();
         }
         Set<Question> questionsList = new HashSet<>();
         while (questionsList.size() != amount) {
-            if (randomGenerator() > 0 && javaQuestionService.size() > 0) {
-                questionsList.add(javaQuestionService.getRandomQuestion());
-            } else if(mathQuestionService.size() > 0) {
-                questionsList.add(mathQuestionService.getRandomQuestion());
+            if (questionServices.get(0).size() != 0) {
+                questionsList.add(questionServices.get(random.nextInt(2)).getRandomQuestion());
+            }else {
+                questionsList.add(questionServices.get(1).getRandomQuestion());
             }
         }
         return questionsList;

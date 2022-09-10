@@ -1,5 +1,6 @@
 package com.skypro.java8.course_work_2.controller;
 
+import com.skypro.java8.course_work_2.exception.MetodNotFoundException;
 import com.skypro.java8.course_work_2.repository.Question;
 import com.skypro.java8.course_work_2.service.QuestionService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,13 +33,6 @@ public class MathQuestionController {
         Question questionRemove = new Question(question, answer);
         return questionService.remove(questionRemove);
     }
-
-//    @GetMapping(path = "/find")
-//    public Question findQuestion(@RequestParam("question") String question,
-//                                 @RequestParam ("answer")String answer) {
-//        Question questionFind= new Question(question, answer);
-//        return questionService.find(questionFind);
-//    }
 
     @GetMapping
     public Collection<Question> getQuestion() {
