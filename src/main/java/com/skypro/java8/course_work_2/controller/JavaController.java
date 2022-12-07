@@ -1,6 +1,6 @@
 package com.skypro.java8.course_work_2.controller;
 
-import com.skypro.java8.course_work_2.repository.Question;
+import com.skypro.java8.course_work_2.model.Question;
 import com.skypro.java8.course_work_2.service.QuestionService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
-
+//controller with CRUD method for java questions
 @RestController
 @RequestMapping("/java")
 public class JavaController {
@@ -31,13 +31,6 @@ public class JavaController {
         Question questionRemove = new Question(question, answer);
         return questionService.remove(questionRemove);
     }
-
-//    @GetMapping(path = "/find")
-//    public Question findQuestion(@RequestParam("question") String question,
-//                                   @RequestParam ("answer")String answer) {
-//        Question questionFind= new Question(question, answer);
-//        return questionService.find(questionFind);
-//    }
 
     @GetMapping
     public Collection<Question> getQuestion() {

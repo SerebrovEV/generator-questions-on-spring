@@ -1,18 +1,19 @@
 package com.skypro.java8.course_work_2.service;
 
-import com.skypro.java8.course_work_2.exception.ArgumentQuestionRepeatsAnswer;
-import com.skypro.java8.course_work_2.exception.IncorrectQuestionOrAnswer;
-import com.skypro.java8.course_work_2.repository.Question;
+import com.skypro.java8.course_work_2.exception.ArgumentQuestionRepeatsAnswerException;
+import com.skypro.java8.course_work_2.exception.IncorrectQuestionOrAnswerException;
+import com.skypro.java8.course_work_2.model.Question;
 import org.springframework.stereotype.Service;
 
+//service for check question
 @Service
 public class ValidatorService {
     public Question checkQuestion(String question, String answer) {
         if (question == null || answer == null) {
-            throw new IncorrectQuestionOrAnswer();
+            throw new IncorrectQuestionOrAnswerException();
         }
         if (question.equals(answer)) {
-            throw new ArgumentQuestionRepeatsAnswer();
+            throw new ArgumentQuestionRepeatsAnswerException();
         }
         return new Question(question, answer);
     }

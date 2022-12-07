@@ -2,11 +2,12 @@ package com.skypro.java8.course_work_2.service;
 
 import com.skypro.java8.course_work_2.exception.StorageIsEmptyException;
 import com.skypro.java8.course_work_2.repository.MathQuestionRepository;
-import com.skypro.java8.course_work_2.repository.Question;
+import com.skypro.java8.course_work_2.model.Question;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+//service for add, get and remove question math category
 @Service
 public class MathQuestionService implements QuestionService {
 
@@ -40,17 +41,10 @@ public class MathQuestionService implements QuestionService {
         return mathQuestions.remove(question);
     }
 
-//    @Override
-//    public Question find(Question question) {
-//        return mathQuestions.stream()
-//                .filter(q -> q.equals(question))
-//                .findFirst()
-//                .orElseThrow(ObjectNotFoundException::new);
-//    }
 
     @Override
     public Collection<Question> getAll() {
-        return mathQuestions.getAll();
+        return List.copyOf(mathQuestions.getAll());
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.skypro.java8.course_work_2.repository;
+package com.skypro.java8.course_work_2.model;
 
 import java.util.Objects;
 
