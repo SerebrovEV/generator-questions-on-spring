@@ -2,12 +2,13 @@ package com.skypro.java8.course_work_2.service;
 
 import com.skypro.java8.course_work_2.exception.StorageIsEmptyException;
 import com.skypro.java8.course_work_2.repository.JavaQuestionRepository;
-import com.skypro.java8.course_work_2.repository.Question;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.skypro.java8.course_work_2.model.Question;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+
+//service for add, get and remove question first category
 @Service
 public class JavaQuestionService implements QuestionService {
 
@@ -41,7 +42,7 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Collection<Question> getAll() {
-        return javaQuestionRepository.getAll();
+        return List.copyOf(javaQuestionRepository.getAll());
     }
 
     @Override

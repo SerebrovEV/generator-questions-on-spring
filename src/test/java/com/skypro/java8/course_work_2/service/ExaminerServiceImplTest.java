@@ -1,7 +1,7 @@
 package com.skypro.java8.course_work_2.service;
 
-import com.skypro.java8.course_work_2.exception.IncorrectNumberForQuestions;
-import com.skypro.java8.course_work_2.repository.Question;
+import com.skypro.java8.course_work_2.exception.IncorrectNumberForQuestionsException;
+import com.skypro.java8.course_work_2.model.Question;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -53,7 +53,7 @@ public class ExaminerServiceImplTest {
 
     @Test
     public void shouldCallThrowExceptionInExaminerService() {
-        assertThatExceptionOfType(IncorrectNumberForQuestions.class).
+        assertThatExceptionOfType(IncorrectNumberForQuestionsException.class).
                 isThrownBy(() -> out.getQuestions(1));
     }
 }

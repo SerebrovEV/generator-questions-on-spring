@@ -1,8 +1,8 @@
 package com.skypro.java8.course_work_2.service;
 
-import com.skypro.java8.course_work_2.exception.ArgumentQuestionRepeatsAnswer;
-import com.skypro.java8.course_work_2.exception.IncorrectQuestionOrAnswer;
-import com.skypro.java8.course_work_2.repository.Question;
+import com.skypro.java8.course_work_2.exception.ArgumentQuestionRepeatsAnswerException;
+import com.skypro.java8.course_work_2.exception.IncorrectQuestionOrAnswerException;
+import com.skypro.java8.course_work_2.model.Question;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -21,9 +21,9 @@ public class ValidatorServiceTest {
 
     @Test
     public void shouldCallThrowExceptionInValidatorServiceAdd() {
-        assertThrows(ArgumentQuestionRepeatsAnswer.class, () -> out.checkQuestion("Example question 1", "Example question 1"));
-        assertThrows(IncorrectQuestionOrAnswer.class, () -> out.checkQuestion("Example question 1", null));
-        assertThrows(IncorrectQuestionOrAnswer.class, () -> out.checkQuestion(null, "Example answer 1"));
+        assertThrows(ArgumentQuestionRepeatsAnswerException.class, () -> out.checkQuestion("Example question 1", "Example question 1"));
+        assertThrows(IncorrectQuestionOrAnswerException.class, () -> out.checkQuestion("Example question 1", null));
+        assertThrows(IncorrectQuestionOrAnswerException.class, () -> out.checkQuestion(null, "Example answer 1"));
     }
 
 }
